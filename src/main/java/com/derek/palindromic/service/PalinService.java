@@ -1,7 +1,12 @@
 package com.derek.palindromic.service;
 
+import com.derek.palindromic.entity.Palin;
+
+import java.util.List;
+
 public interface PalinService {
-    public void savePalin(String origin);
-    public String findPalin(String origin);
-    public String getLongestPalindromicSubstring(String origin);
+    void savePalin(String origin);
+    Palin findPalin(String origin);
+    List<Palin> findAll();
+    String getLongestPalindromicSubstring(String origin);
 }

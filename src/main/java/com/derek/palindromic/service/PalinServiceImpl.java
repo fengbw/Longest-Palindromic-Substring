@@ -4,6 +4,7 @@ import com.derek.palindromic.entity.Palin;
 import com.derek.palindromic.repository.PalinRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,15 +23,20 @@ public class PalinServiceImpl implements PalinService{
     }
 
     @Override
-    public String findPalin(String origin) {
+    public Palin findPalin(String origin) {
         Optional<Palin> palinOptional = palinRepository.findByOrigin(origin);
         if (palinOptional.isPresent()) {
-            return palinOptional.get().getLongestpalin();
+            return palinOptional.get();
         }
         String longest = getLongestPalindromicSubstring(origin);
         Palin palinEntity = new Palin(origin, longest);
         palinRepository.save(palinEntity);
-        return longest;
+        return palinEntity;
+    }
+
+    @Override
+    public List<Palin> findAll() {
+        return palinRepository.findAll();
     }
 
     @Override
