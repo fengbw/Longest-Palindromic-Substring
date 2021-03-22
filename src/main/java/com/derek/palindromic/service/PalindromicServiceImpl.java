@@ -1,42 +1,42 @@
 package com.derek.palindromic.service;
 
-import com.derek.palindromic.entity.Palin;
-import com.derek.palindromic.repository.PalinRepository;
+import com.derek.palindromic.entity.Palindromic;
+import com.derek.palindromic.repository.PalindromicRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PalinServiceImpl implements PalinService{
+public class PalindromicServiceImpl implements PalindromicService{
 
-    PalinRepository palinRepository;
+    PalindromicRepository palindromicRepository;
 
-    public PalinServiceImpl(PalinRepository palinRepository) {
-        this.palinRepository = palinRepository;
+    public PalindromicServiceImpl(PalindromicRepository palindromicRepository) {
+        this.palindromicRepository = palindromicRepository;
     }
 
     @Override
-    public void savePalin(String origin) {
+    public void savePalindromic(String origin) {
         String longest = getLongestPalindromicSubstring(origin);
-        palinRepository.save(new Palin(origin, longest));
+        palindromicRepository.save(new Palindromic(origin, longest));
     }
 
     @Override
-    public Palin findPalin(String origin) {
-        Optional<Palin> palinOptional = palinRepository.findByOrigin(origin);
+    public Palindromic findPalindromic(String origin) {
+        Optional<Palindromic> palinOptional = palindromicRepository.findByOrigin(origin);
         if (palinOptional.isPresent()) {
             return palinOptional.get();
         }
         String longest = getLongestPalindromicSubstring(origin);
-        Palin palinEntity = new Palin(origin, longest);
-        palinRepository.save(palinEntity);
+        Palindromic palinEntity = new Palindromic(origin, longest);
+        palindromicRepository.save(palinEntity);
         return palinEntity;
     }
 
     @Override
-    public List<Palin> findAll() {
-        return palinRepository.findAll();
+    public List<Palindromic> findAll() {
+        return palindromicRepository.findAll();
     }
 
     @Override
